@@ -15,6 +15,11 @@ public class AccountStorage {
     }
 
     public void addAccount(Account account) {
+        accounts.add(account);
+    }
+
+    public void addAccount(int id, float amount) {
+        Account account = new Account(id, amount);
         this.accounts.add(account);
     }
 
@@ -27,6 +32,15 @@ public class AccountStorage {
         return null;
     }
 
+
+    public boolean checkIfExists(int id){
+        for(Account a : accounts){
+            if(a.getAccountId() == (id)) {
+                return true;
+            }
+        }
+        return false;
+    };
 
     public List<Account> getAccounts() {
         return accounts;

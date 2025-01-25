@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TransactionStatus {
     private float balanceUpdate;
-    private boolean status;
+    private String status;
 
     private final AccountStorage accountStorage;
 
@@ -15,27 +15,35 @@ public class TransactionStatus {
 
     public void newOrder (int id, float amount) {
         if(accountStorage.getAccount(id).getBalance() <= 0) {
-            setStatus(false);
-        }else {
+            setStatus("Account balance is less than zero");
+        }else if(!accountStorage.checkIfExists(id)){
+            setStatus("Account does not exist");
+        }
+        else {
             balanceUpdate = accountStorage.getAccount(id).getBalance() - amount;
             accountStorage.getAccount(id).setBalance(balanceUpdate);
-            setStatus(true);
+            setStatus("Transaction is completed");
         }
     };
 
     public void addMoney (int id, float amount) {
-        accountStorage.getAccount(id).updateBalance(amount);
+        if(!accountStorage.checkIfExists(id)){
+            setStatus("Account does not exist");
+        }else{
+            accountStorage.getAccount(id).updateBalance(amount);
+            setStatus("Amount " + amount + "$ added to account");
+        }
     }
 
     public float getBalanceUpdate() {
         return balanceUpdate;
     }
 
-    public boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    private void setStatus(boolean status) {
-        this.status = status;
+    private void setStatus(String update) {
+        this.status = update;
     }
 }

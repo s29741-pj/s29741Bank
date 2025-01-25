@@ -6,14 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class S29741BankApplication {
 
-    private final Account account;
     private final AccountStorage accountStorage;
     private final AccountService accountService;
     private final Controller controller;
     private final TransactionStatus transactionStatus;
 
-    public S29741BankApplication(Account account, AccountStorage accountStorage, AccountService accountService, Controller controller, TransactionStatus transactionStatus) {
-        this.account = account;
+    public S29741BankApplication(AccountStorage accountStorage, AccountService accountService, Controller controller, TransactionStatus transactionStatus) {
         this.accountStorage = accountStorage;
         this.accountService = accountService;
         this.controller = controller;
@@ -21,13 +19,15 @@ public class S29741BankApplication {
     }
 
 public void run(){
-
+        Account account_1 = new Account(1,1000.0f);
+        accountStorage.addAccount(account_1);
 }
 
 
 
     public static void main(String[] args) {
         SpringApplication.run(S29741BankApplication.class, args);
+        System.exit(0);
     }
 
 }
