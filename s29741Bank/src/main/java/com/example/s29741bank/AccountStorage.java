@@ -28,15 +28,6 @@ public class AccountStorage {
     }
 
 
-    public boolean checkIfExists(int id){
-        for(Account a : accounts){
-            if(a.getAccountId() == (id)) {
-                return true;
-            }
-        }
-        return false;
-    };
-
     public List<Account> getAccounts() {
         return accounts;
     }

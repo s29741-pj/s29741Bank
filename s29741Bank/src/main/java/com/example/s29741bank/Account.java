@@ -13,15 +13,18 @@ public class Account {
         this.accountId = accountId;
     }
 
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
     public int getAccountId() {
         return accountId;
     }
 
-    public void setBalance(float balance) {
-        this.balance = balance;
-    }
-
     public float getBalance() {
         return balance;
+    }
+
+    public void updateBalance(float amount) {
+        this.balance += amount;
     }
 }

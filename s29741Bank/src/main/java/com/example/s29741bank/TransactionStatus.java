@@ -7,25 +7,35 @@ public class TransactionStatus {
     private float balanceUpdate;
     private boolean status;
 
-    public void checkStatus(float amount ,Account account) {
-        if(account.getBalance() <= 0) {
+    private final AccountStorage accountStorage;
+
+    public TransactionStatus( AccountStorage accountStorage) {
+        this.accountStorage = accountStorage;
+    }
+
+    public void newOrder (int id, float amount) {
+        if(accountStorage.getAccount(id).getBalance() <= 0) {
             setStatus(false);
         }else {
-            balanceUpdate = account.getBalance() - amount;
-            account.setBalance(balanceUpdate);
+            balanceUpdate = accountStorage.getAccount(id).getBalance() - amount;
+            accountStorage.getAccount(id).setBalance(balanceUpdate);
             setStatus(true);
         }
     };
+
+    public void addMoney (int id, float amount) {
+        accountStorage.getAccount(id).updateBalance(amount);
+    }
 
     public float getBalanceUpdate() {
         return balanceUpdate;
     }
 
-    private void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public boolean getStatus() {
         return status;
+    }
+
+    private void setStatus(boolean status) {
+        this.status = status;
     }
 }
