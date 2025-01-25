@@ -16,14 +16,15 @@ public class S29741BankApplication {
         this.accountService = accountService;
         this.controller = controller;
         this.transactionStatus = transactionStatus;
+        run();
     }
 
 public void run(){
         Account account_1 = new Account(1,1000.0f);
         accountStorage.addAccount(account_1);
+        System.out.println(account_1.getAccountId());
+        System.out.println(account_1.getBalance());
 }
-
-
 
     public static void main(String[] args) {
         SpringApplication.run(S29741BankApplication.class, args);
